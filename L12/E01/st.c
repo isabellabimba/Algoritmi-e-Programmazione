@@ -1,0 +1,41 @@
+//
+// Created by Isabella Priano on 09/01/2020.
+//
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "st.h"
+
+struct st_t {
+    int n;
+    int m;
+    char **item;
+};
+
+ST STinit(int n) {
+    ST st = (ST)malloc(sizeof(ST));
+    st->n = n;
+    st->m = 0;
+    st->item = malloc(n * sizeof(char *));
+    for (int i = 0; i < n; i++) st->item[i] = malloc(sizeof(char));
+    return st;
+};
+
+void STinsert(ST st, char *name) {
+    if (st->n == st->m) {
+        printf("Impossibile inserire altri elementi\n");
+        return;
+    }
+    strcpy(st->item[st->m], name);
+    st->m++;
+}
+
+int STgetindex(ST st, char *name) {
+    for (int i = 0; i < st->m; ++i)
+        if (strcmp(name, st->item[i]) == 0) return i;
+    return -1;
+}
+
+char *STselect(ST st, int i) {
+    return st->item[i];
+}
